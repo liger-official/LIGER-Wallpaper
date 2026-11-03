@@ -6,49 +6,60 @@
 <style>
 body{
 margin:0;padding:12px;
-background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 30%, #ff6eb7 70%, #ff8dc7 100%);
-background-attachment: fixed;
-font-family:sans-serif;text-align:center;min-height:100vh;
+background: linear-gradient(rgba(255,46,138,0.6), rgba(255,182,193,0.6)), url('https://images.unsplash.com/photo-1490750967868-88aa4f44baee?w=800');
+background-size:cover;
+background-attachment:fixed;
+background-position:center;
+min-height:100vh;
+font-family:sans-serif;text-align:center;
 }
-body::before{
-content:"🌸 🌺 🌷 🌸 🌺 🌷 🌸 🌺";
-position:fixed;top:0;left:0;width:100%;height:100%;
-font-size:28px;opacity:0.12;pointer-events:none;z-index:-1;
-line-height:60px;word-spacing:25px;
-}
-h2{background:rgba(255,255,255,0.9);padding:12px;border-radius:15px;color:#ff2e8a;box-shadow:0 4px 15px rgba(0,0,0,0.1)}
-input{width:90%;padding:15px;border-radius:20px;border:0;font-size:16px;box-shadow:0 4px 15px rgba(0,0,0,0.15)}
-button.search{width:92%;padding:14px;margin-top:12px;background:#ff2e8a;color:#fff;border:0;border-radius:20px;font-weight:bold;font-size:16px;box-shadow:0 4px 15px rgba(255,46,138,0.4)}
+h2{background:rgba(255,255,255,0.95);padding:12px;border-radius:20px;color:#ff2e8a;box-shadow:0 4px 20px rgba(0,0,0,0.2)}
+input{width:90%;padding:15px;border-radius:20px;border:0;font-size:16px;box-shadow:0 4px 15px rgba(0,0,0,0.2)}
+button.search{width:92%;padding:14px;margin-top:12px;background:#ff2e8a;color:#fff;border:0;border-radius:20px;font-weight:bold;font-size:17px;box-shadow:0 4px 15px rgba(255,46,138,0.5)}
 #box{display:flex;flex-wrap:wrap;justify-content:center;margin-top:15px;gap:12px}
-.card{width:48%;background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 8px 20px rgba(0,0,0,0.15)}
-.card img{width:100%;height:280px;object-fit:cover;display:block}
-.card .dl{background:#ff2e8a;color:#fff;width:100%;padding:10px;border:0;font-weight:bold}
-.footer{margin-top:20px;background:rgba(0,0,0,0.8);color:#fff;padding:12px;border-radius:15px;font-weight:bold;letter-spacing:1px}
+.card{width:48%;background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 8px 25px rgba(0,0,0,0.25);border:2px solid #fff}
+.card img{width:100%;height:320px;object-fit:cover;display:block}
+.card .dl{background:linear-gradient(45deg,#ff2e8a,#ff8dc7);color:#fff;width:100%;padding:11px;border:0;font-weight:bold}
+.footer{margin-top:20px;background:rgba(0,0,0,0.85);color:#fff;padding:14px;border-radius:15px;font-weight:bold;letter-spacing:1px;backdrop-filter:blur(5px)}
+.flowers{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:-1;font-size:26px;opacity:0.4;line-height:70px;word-spacing:30px;animation:float 20s linear infinite}
+@keyframes float{0%{transform:translateY(0)}100%{transform:translateY(-100px)}}
 </style>
 </head>
 <body>
+<div class="flowers">🌸 🌺 🌷 🌹 🌸 🌺 🌷 🌹 🌸 🌺 🌷 🌹 🌸 🌺 🌷 🌹 🌸 🌺 🌷</div>
 <h2>💖 LIGER AI WALLPAPER 🌸</h2>
-<input id="q" placeholder="Alphabet, whatsapp, A, B, girl">
+<input id="q" placeholder="KESA WALLPAPER CHYEA...!">
 <button class="search" onclick="go()">🌸 SEARCH 🌺</button>
 <div id="box"></div>
-<div class="footer">POWERED BY LIGER ⚡</div>
+<div class="footer">POWERED BY LIGER ⚡ 🌸</div>
 <script>
 function go(){
-let q=document.getElementById('q').value.trim() || "beautiful girl wallpaper";
-if(q.toLowerCase().length==1) q="letter "+q+" pink flower 3d";
+let q=document.getElementById('q').value.trim().toLowerCase() || "boy";
+let box=document.getElementById('box');
+box.innerHTML="<h3 style='color:white;background:rgba(0,0,0,0.5);padding:10px;border-radius:10px'>Loading real wallpapers...</h3>";
+setTimeout(()=>{
 let html="";
+if(q.length==1){
+let colors=["ff2e8a","9d4edd","ff6b6b","00bbf9","f72585","7209b7"];
+for(let i=0;i<12;i++){
+let bg=colors[i%colors.length];
+let url=`https://dummyimage.com/600x1000/${bg}/ffffff&text=${q.toUpperCase()}`;
+html+=`<div class="card"><img src="${url}" style="object-fit:contain;background:linear-gradient(45deg,#${bg},#ff9a9e)"><button class="dl" onclick="downloadImg('${url}')">⬇ DOWNLOAD</button></div>`;
+}
+}else{
 for(let i=1;i<=12;i++){
-let seed = q+"-pink-"+i+"-"+Math.floor(Math.random()*9999);
-let url = `https://picsum.photos/seed/${encodeURIComponent(seed)}/600/1000`;
+let url=`https://loremflickr.com/600/1000/${encodeURIComponent(q)},wallpaper?lock=${i+Math.floor(Math.random()*5000)}`;
 html+=`<div class="card"><img src="${url}" loading="lazy"><button class="dl" onclick="downloadImg('${url}')">⬇ DOWNLOAD</button></div>`;
 }
-document.getElementById('box').innerHTML=html;
+}
+box.innerHTML=html;
+},400);
 }
 function downloadImg(url){
 fetch(url).then(r=>r.blob()).then(b=>{
 let a=document.createElement('a');
 a.href=URL.createObjectURL(b);
-a.download="LIGER-Wallpaper-"+Date.now()+".jpg";
+a.download="LIGER-"+Date.now()+".jpg";
 a.click();
 });
 }
