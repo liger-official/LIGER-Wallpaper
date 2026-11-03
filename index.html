@@ -4,30 +4,53 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>LIGER Wallpaper</title>
 <style>
-body{background:#000;color:#fff;text-align:center;font-family:sans-serif;margin:0;padding:10px}
-h2{letter-spacing:1px}
-input{width:90%;padding:15px;border-radius:12px;border:0;font-size:16px;margin-top:10px}
-button{width:92%;padding:14px;margin-top:12px;background:#00ff88;border:0;border-radius:12px;font-weight:bold;font-size:16px}
-#box{display:flex;flex-wrap:wrap;justify-content:center;margin-top:15px;gap:8px}
-#box img{width:48%;border-radius:15px;height:320px;object-fit:cover;background:#111}
+body{
+margin:0;padding:12px;
+background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 30%, #ff6eb7 70%, #ff8dc7 100%);
+background-attachment: fixed;
+font-family:sans-serif;text-align:center;min-height:100vh;
+}
+body::before{
+content:"🌸 🌺 🌷 🌸 🌺 🌷 🌸 🌺";
+position:fixed;top:0;left:0;width:100%;height:100%;
+font-size:28px;opacity:0.12;pointer-events:none;z-index:-1;
+line-height:60px;word-spacing:25px;
+}
+h2{background:rgba(255,255,255,0.9);padding:12px;border-radius:15px;color:#ff2e8a;box-shadow:0 4px 15px rgba(0,0,0,0.1)}
+input{width:90%;padding:15px;border-radius:20px;border:0;font-size:16px;box-shadow:0 4px 15px rgba(0,0,0,0.15)}
+button.search{width:92%;padding:14px;margin-top:12px;background:#ff2e8a;color:#fff;border:0;border-radius:20px;font-weight:bold;font-size:16px;box-shadow:0 4px 15px rgba(255,46,138,0.4)}
+#box{display:flex;flex-wrap:wrap;justify-content:center;margin-top:15px;gap:12px}
+.card{width:48%;background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 8px 20px rgba(0,0,0,0.15)}
+.card img{width:100%;height:280px;object-fit:cover;display:block}
+.card .dl{background:#ff2e8a;color:#fff;width:100%;padding:10px;border:0;font-weight:bold}
+.footer{margin-top:20px;background:rgba(0,0,0,0.8);color:#fff;padding:12px;border-radius:15px;font-weight:bold;letter-spacing:1px}
 </style>
 </head>
 <body>
-<h2>LIGER AI WALLPAPER</h2>
-<input id="q" placeholder="Alphabet, whatsapp, A, B, nature">
-<button onclick="go()">SEARCH</button>
+<h2>💖 LIGER AI WALLPAPER 🌸</h2>
+<input id="q" placeholder="Alphabet, whatsapp, A, B, girl">
+<button class="search" onclick="go()">🌸 SEARCH 🌺</button>
 <div id="box"></div>
+<div class="footer">POWERED BY LIGER ⚡</div>
 <script>
 function go(){
-let q=document.getElementById('q').value.trim() || "wallpaper";
-if(q.toLowerCase().includes("what app") || q.toLowerCase().includes("whatsapp")) q="whatsapp logo dark";
-if(q.toLowerCase().length==1) q="letter "+q+" 3d wallpaper dark";
+let q=document.getElementById('q').value.trim() || "beautiful girl wallpaper";
+if(q.toLowerCase().length==1) q="letter "+q+" pink flower 3d";
 let html="";
 for(let i=1;i<=12;i++){
-let seed = encodeURIComponent(q+"-"+i+"-"+Date.now());
-html+=`<img src="https://picsum.photos/seed/${seed}/400/800" loading="lazy" onclick="window.open(this.src,'_blank')">`;
+let seed = q+"-pink-"+i+"-"+Math.floor(Math.random()*9999);
+let url = `https://picsum.photos/seed/${encodeURIComponent(seed)}/600/1000`;
+html+=`<div class="card"><img src="${url}" loading="lazy"><button class="dl" onclick="downloadImg('${url}')">⬇ DOWNLOAD</button></div>`;
 }
 document.getElementById('box').innerHTML=html;
+}
+function downloadImg(url){
+fetch(url).then(r=>r.blob()).then(b=>{
+let a=document.createElement('a');
+a.href=URL.createObjectURL(b);
+a.download="LIGER-Wallpaper-"+Date.now()+".jpg";
+a.click();
+});
 }
 go();
 </script>
