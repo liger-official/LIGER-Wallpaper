@@ -4,64 +4,36 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>LIGER Wallpaper</title>
 <style>
-body{
-margin:0;padding:12px;
-background: linear-gradient(rgba(255,46,138,0.6), rgba(255,182,193,0.6)), url('https://images.unsplash.com/photo-1490750967868-88aa4f44baee?w=800');
-background-size:cover;
-background-attachment:fixed;
-background-position:center;
-min-height:100vh;
-font-family:sans-serif;text-align:center;
-}
-h2{background:rgba(255,255,255,0.95);padding:12px;border-radius:20px;color:#ff2e8a;box-shadow:0 4px 20px rgba(0,0,0,0.2)}
-input{width:90%;padding:15px;border-radius:20px;border:0;font-size:16px;box-shadow:0 4px 15px rgba(0,0,0,0.2)}
-button.search{width:92%;padding:14px;margin-top:12px;background:#ff2e8a;color:#fff;border:0;border-radius:20px;font-weight:bold;font-size:17px;box-shadow:0 4px 15px rgba(255,46,138,0.5)}
+body{margin:0;padding:10px;background:linear-gradient(135deg,#ff9a9e,#fecfef,#ff6eb7);min-height:100vh;font-family:sans-serif;text-align:center}
+h2{background:#fff;padding:12px;border-radius:20px;color:#ff2e8a}
+input{width:92%;padding:16px;border-radius:25px;border:0;font-size:16px}
+button.search{width:92%;padding:14px;margin-top:12px;background:#ff2e8a;color:#fff;border:0;border-radius:25px;font-weight:bold;font-size:17px}
 #box{display:flex;flex-wrap:wrap;justify-content:center;margin-top:15px;gap:12px}
-.card{width:48%;background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 8px 25px rgba(0,0,0,0.25);border:2px solid #fff}
-.card img{width:100%;height:320px;object-fit:cover;display:block}
-.card .dl{background:linear-gradient(45deg,#ff2e8a,#ff8dc7);color:#fff;width:100%;padding:11px;border:0;font-weight:bold}
-.footer{margin-top:20px;background:rgba(0,0,0,0.85);color:#fff;padding:14px;border-radius:15px;font-weight:bold;letter-spacing:1px;backdrop-filter:blur(5px)}
-.flowers{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:-1;font-size:26px;opacity:0.4;line-height:70px;word-spacing:30px;animation:float 20s linear infinite}
-@keyframes float{0%{transform:translateY(0)}100%{transform:translateY(-100px)}}
+.card{width:48%;background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 8px 25px rgba(0,0,0,0.3);position:relative;border:2px solid white}
+.card img{width:100%;height:340px;object-fit:cover;display:block;background:#ffe6f0}
+.card .dl{position:absolute;top:8px;right:8px;background:rgba(255,46,138,0.95);color:#fff;border:0;border-radius:50%;width:42px;height:42px;font-size:20px;font-weight:bold;box-shadow:0 4px 10px rgba(0,0,0,0.3)}
+.card .dl2{position:absolute;bottom:0;left:0;width:100%;background:linear-gradient(transparent, rgba(0,0,0,0.8));color:#fff;border:0;padding:12px 5px;font-weight:bold;font-size:13px}
+.footer{margin-top:20px;background:rgba(0,0,0,0.85);color:#fff;padding:14px;border-radius:15px;font-weight:bold}
 </style>
 </head>
 <body>
-<div class="flowers">🌸 🌺 🌷 🌹 🌸 🌺 🌷 🌹 🌸 🌺 🌷 🌹 🌸 🌺 🌷 🌹 🌸 🌺 🌷</div>
 <h2>💖 LIGER AI WALLPAPER 🌸</h2>
 <input id="q" placeholder="KESA WALLPAPER CHYEA...!">
 <button class="search" onclick="go()">🌸 SEARCH 🌺</button>
 <div id="box"></div>
-<div class="footer">POWERED BY LIGER ⚡ 🌸</div>
+<div class="footer">POWERED BY LIGER ⚡</div>
 <script>
 function go(){
-let q=document.getElementById('q').value.trim().toLowerCase() || "boy";
+let q=document.getElementById('q').value.trim() || "beautiful girl";
 let box=document.getElementById('box');
-box.innerHTML="<h3 style='color:white;background:rgba(0,0,0,0.5);padding:10px;border-radius:10px'>Loading real wallpapers...</h3>";
-setTimeout(()=>{
+box.innerHTML="<h3 style='color:white'>✨ AI bana raha hai...</h3>";
 let html="";
-if(q.length==1){
-let colors=["ff2e8a","9d4edd","ff6b6b","00bbf9","f72585","7209b7"];
-for(let i=0;i<12;i++){
-let bg=colors[i%colors.length];
-let url=`https://dummyimage.com/600x1000/${bg}/ffffff&text=${q.toUpperCase()}`;
-html+=`<div class="card"><img src="${url}" style="object-fit:contain;background:linear-gradient(45deg,#${bg},#ff9a9e)"><button class="dl" onclick="downloadImg('${url}')">⬇ DOWNLOAD</button></div>`;
-}
-}else{
 for(let i=1;i<=12;i++){
-let url=`https://loremflickr.com/600/1000/${encodeURIComponent(q)},wallpaper?lock=${i+Math.floor(Math.random()*5000)}`;
-html+=`<div class="card"><img src="${url}" loading="lazy"><button class="dl" onclick="downloadImg('${url}')">⬇ DOWNLOAD</button></div>`;
-}
+let prompt=q.length==1?`3d letter ${q.toUpperCase()} wallpaper pink flowers hd` : `${q} wallpaper beautiful hd 4k aesthetic`;
+let url=`https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?width=600&height=1000&seed=${i+Math.floor(Math.random()*10000)}&nologo=true`;
+html+=`<div class="card"><img src="${url}" loading="lazy"><button class="dl" onclick="window.open('${url}','_blank')">⬇</button><button class="dl2" onclick="window.open('${url}','_blank')">DOWNLOAD</button></div>`;
 }
 box.innerHTML=html;
-},400);
-}
-function downloadImg(url){
-fetch(url).then(r=>r.blob()).then(b=>{
-let a=document.createElement('a');
-a.href=URL.createObjectURL(b);
-a.download="LIGER-"+Date.now()+".jpg";
-a.click();
-});
 }
 go();
 </script>
