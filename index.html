@@ -2,51 +2,37 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>LIGER Wallpaper</title>
+<title>LIGER</title>
 <style>
-body{margin:0;padding:10px;background:#ffb6d9;min-height:100vh;font-family:sans-serif;text-align:center}
+body{margin:0;padding:10px;background:#ffb6d9;text-align:center;font-family:sans-serif}
 h2{background:#fff;padding:12px;border-radius:20px;color:#ff2e8a}
-input{width:92%;padding:16px;border-radius:25px;border:0;font-size:16px}
-button.search{width:92%;padding:14px;margin-top:12px;background:#ff2e8a;color:#fff;border:0;border-radius:25px;font-weight:bold;font-size:17px}
-#box{display:flex;flex-wrap:wrap;justify-content:center;margin-top:15px;gap:10px}
-.card{width:48%;background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 8px 20px rgba(0,0,0,0.3);position:relative;border:2px solid white}
-.card img{width:100%;height:330px;object-fit:cover;display:block;background:#fff}
-.card .dl{position:absolute;top:8px;right:8px;background:#ff2e8a;color:#fff;border:0;border-radius:50%;width:40px;height:40px;font-size:18px}
-.card .dl2{position:absolute;bottom:0;left:0;width:100%;background:linear-gradient(transparent, rgba(0,0,0,0.8));color:#fff;border:0;padding:10px;font-weight:bold}
-.footer{margin-top:20px;background:#000;color:#fff;padding:12px;border-radius:12px;font-weight:bold}
+input{width:92%;padding:15px;border-radius:25px;border:0}
+button.search{width:92%;padding:14px;margin-top:10px;background:#ff2e8a;color:#fff;border:0;border-radius:25px;font-weight:bold}
+#box{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:15px}
+.card{width:48%;background:#fff;border-radius:15px;overflow:hidden;position:relative;border:2px solid #fff;box-shadow:0 5px 15px rgba(0,0,0,0.3)}
+.card img{width:100%;height:320px;object-fit:cover;display:block}
+.card .dl{position:absolute;top:6px;right:6px;background:#ff2e8a;color:#fff;border:0;border-radius:50%;width:38px;height:38px}
+.footer{margin-top:15px;background:#000;color:#fff;padding:10px;border-radius:10px}
 </style>
 </head>
 <body>
 <h2>💖 LIGER AI WALLPAPER 🌸</h2>
-<input id="q" placeholder="TYPE...!">
+<input id="q" placeholder="TYPE...">
 <button class="search" onclick="go()">🌸 SEARCH 🌺</button>
 <div id="box"></div>
 <div class="footer">POWERED BY LIGER ⚡</div>
 <script>
-const BOY_IMGS=[
-"https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600&h=1000&fit=crop",
-"https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=600&h=1000&fit=crop",
-"https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=1000&fit=crop",
-"https://images.unsplash.com/photo-1521119989659-a83eee488004?w=600&h=1000&fit=crop",
-"https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=600&h=1000&fit=crop",
-"https://images.unsplash.com/photo-1504257432389-52343af06ae3?w=600&h=1000&fit=crop",
-"https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=600&h=1000&fit=crop",
-"https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=600&h=1000&fit=crop",
-"https://images.unsplash.com/photo-1531384441138-2736e62e0919?w=600&h=1000&fit=crop",
-"https://images.unsplash.com/photo-1504593811423-6dd665756598?w=600&h=1000&fit=crop",
-"https://images.unsplash.com/photo-1522529599102-193c0d76b5b6?w=600&h=1000&fit=crop",
-"https://images.unsplash.com/photo-1520409364224-63400afe26e5?w=600&h=1000&fit=crop"
-];
-const GIRL_IMGS=[
-"https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=600&h=1000&fit=crop",
-"https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=600&h=1000&fit=crop",
-"https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=600&h=1000&fit=crop",
-"https://images.unsplash.com/photo-1517841905240-472988babdf9?w=600&h=1000&fit=crop",
-"https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=600&h=1000&fit=crop",
-"https://images.unsplash.com/photo-1509967419535-06a1021527e6?w=600&h=1000&fit=crop",
-"https://images.unsplash.com/photo-1526510747491-58f928ec870f?w=600&h=1000&fit=crop",
-"https://images.unsplash.com/photo-1512310604669-443f26c35f52?w=600&h=1000&fit=crop",
-"https://images.unsplash.com/photo-1492106087820-71f1a00d2b11?w=600&h=1000&fit=crop",
-"https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=600&h=1000&fit=crop",
-"https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?w=600&h=1000&fit=crop",
-"https://images.unsplash.com/photo-152450303
+function go(){
+let q=document.getElementById('q').value.trim() || "girl";
+let box=document.getElementById('box');
+box.innerHTML="";
+for(let i=0;i<12;i++){
+let seed = encodeURIComponent(q+"-"+i);
+let url = `https://picsum.photos/seed/${seed}/600/1000`;
+box.innerHTML+=`<div class="card"><img src="${url}"><button class="dl" onclick="window.open('${url}')">⬇</button></div>`;
+}
+}
+go();
+</script>
+</body>
+</html>
