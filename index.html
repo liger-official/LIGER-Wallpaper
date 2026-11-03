@@ -1,20 +1,35 @@
 <!DOCTYPE html>
-<html><head><meta name="viewport" content="width=device-width, initial-scale=1"><title>LIGER Wallpaper</title>
-<style>body{background:#000;color:#fff;text-align:center;font-family:sans-serif}input{width:85%;padding:14px;border-radius:10px;margin-top:20px}button{padding:12px;width:85%;margin-top:10px;background:#00ff88;border:0;border-radius:10px;font-weight:bold}img{width:48%;margin:1%;border-radius:12px;height:250px;object-fit:cover}</style></head>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LIGER Wallpaper</title>
+<style>
+body{background:#000;color:#fff;text-align:center;font-family:sans-serif;margin:0;padding:10px}
+h2{letter-spacing:1px}
+input{width:90%;padding:15px;border-radius:12px;border:0;font-size:16px;margin-top:10px}
+button{width:92%;padding:14px;margin-top:12px;background:#00ff88;border:0;border-radius:12px;font-weight:bold;font-size:16px}
+#box{display:flex;flex-wrap:wrap;justify-content:center;margin-top:15px;gap:8px}
+#box img{width:48%;border-radius:15px;height:320px;object-fit:cover;background:#111}
+</style>
+</head>
 <body>
-<h3>LIGER AI WALLPAPER</h3>
-<input id="q" placeholder="Likho: A, B, whatsapp, nature">
+<h2>LIGER AI WALLPAPER</h2>
+<input id="q" placeholder="Alphabet, whatsapp, A, B, nature">
 <button onclick="go()">SEARCH</button>
-<div id="box" style="margin-top:15px"></div>
+<div id="box"></div>
 <script>
 function go(){
-let a=document.getElementById('q').value;
-if(a==""){a="beautiful mobile wallpaper"}
-let b="";
-for(let i=0;i<12;i++){
-b+=`<img src="https://source.unsplash.com/400x800/?${a},wallpaper,${i}" onclick="window.open(this.src)">`;
+let q=document.getElementById('q').value.trim() || "wallpaper";
+if(q.toLowerCase().includes("what app") || q.toLowerCase().includes("whatsapp")) q="whatsapp logo dark";
+if(q.toLowerCase().length==1) q="letter "+q+" 3d wallpaper dark";
+let html="";
+for(let i=1;i<=12;i++){
+let seed = encodeURIComponent(q+"-"+i+"-"+Date.now());
+html+=`<img src="https://picsum.photos/seed/${seed}/400/800" loading="lazy" onclick="window.open(this.src,'_blank')">`;
 }
-document.getElementById('box').innerHTML=b;
+document.getElementById('box').innerHTML=html;
 }
 go();
-</script></body></html>
+</script>
+</body>
+</html>
